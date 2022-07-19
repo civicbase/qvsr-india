@@ -6,8 +6,7 @@ const GeolocationMessage = () => {
 
   return (
     <div
-      style={{ zIndex: 100 }}
-      css={tw`backdrop-blur-3xl absolute w-full h-full left-0 bg-white bg-opacity-90 flex justify-center items-center flex-col`}
+      css={tw`backdrop-blur-3xl absolute w-full h-full left-0 bg-white bg-opacity-90 flex justify-center items-center flex-col z-50`}
     >
       Please enable the navigator geolocation to continue
       {error && <div>Reason: {(error as any).message}</div>}
