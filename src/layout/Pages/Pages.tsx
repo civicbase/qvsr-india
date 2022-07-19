@@ -5,6 +5,7 @@ import Card from 'components/Card'
 type PagesLayoutProps = {
   footer: React.ReactNode
   content: React.ReactNode
+  geolocation: React.ReactNode
 }
 
 const styles = {
@@ -14,10 +15,11 @@ const styles = {
   ],
 }
 
-const PagesLayout = ({ footer, content }: PagesLayoutProps) => {
+const PagesLayout = ({ footer, content, geolocation }: PagesLayoutProps) => {
   return (
     <div css={styles.container({ hasBackground: true })}>
-      <Card>
+      <Card css={tw`relative`}>
+        {geolocation}
         <div css={tw`flex-1 overflow-y-auto px-2`}>{content}</div>
         <div css={tw`justify-end`}>{footer}</div>
       </Card>

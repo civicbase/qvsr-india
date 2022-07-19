@@ -4,16 +4,10 @@ import { useForm, FormProvider, useFormContext } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components'
 import PagesLayout from 'layout/Pages'
-import Steps from 'components/Steps'
 import validation from './validation'
-
-const Content = ({ step }: { step: number }) => {
-  return (
-    <div css={tw`relative`}>
-      <Steps id={step} />
-    </div>
-  )
-}
+import Content from 'components/Content'
+import Geolocation from 'components/Geolocation'
+import useGeolocation from 'hooks/use-geolocation'
 
 const Footer = ({
   onPrevious,
@@ -55,6 +49,7 @@ interface FormValues {
 
 const App = () => {
   const [step, setStep] = useState(1)
+  const { latitude, longitude } = useGeolocation()
   const methods = useForm<FormValues>({
     defaultValues: {
       surveyor: null,
@@ -81,6 +76,7 @@ const App = () => {
         <PagesLayout
           content={<Content step={step} />}
           footer={<Footer onPrevious={handlePrevious} onNext={handleNext} />}
+          geolocation={!latitude || !longitude ? <Geolocation /> : <></>}
         />
       </form>
     </FormProvider>
