@@ -1,25 +1,90 @@
 import tw from 'twin.macro'
-import { Button, Logo } from './components'
-import 'styled-components/macro'
+import { useState } from 'react'
+import { useForm, FormProvider, useFormContext } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from 'components'
+import PagesLayout from 'layout/Pages'
+import Steps from 'components/Steps'
+import validation from './validation'
 
-const styles = {
-  // Move long class sets out of jsx to keep it scannable
-  container: ({ hasBackground }: { hasBackground: boolean }) => [
-    tw`flex flex-col items-center justify-center h-screen`,
-    hasBackground && tw`bg-gradient-to-b from-blue-500 to-pink-300`,
-  ],
+const Content = ({ step }: { step: number }) => {
+  return (
+    <div css={tw`relative`}>
+      <Steps id={step} />
+    </div>
+  )
 }
 
-const App = () => (
-  <div css={styles.container({ hasBackground: true })}>
-    <div css={tw`flex flex-col justify-center h-full gap-y-5`}>
-      <Button variant="primary">Submit</Button>
-      <Button variant="secondary">Cancel</Button>
-    </div>
+const Footer = ({
+  onPrevious,
+  onNext,
+}: {
+  onPrevious: () => void
+  onNext: () => void
+}) => {
+  const {
+    trigger,
+    formState: { errors },
+  } = useFormContext()
 
-    <div css={tw`bg-yellow-200`}>filho da puta</div>
-    <Logo />
-  </div>
-)
+  const handleNext = () => {
+    trigger().then(isValid => {
+      if (isValid) {
+        onNext()
+      }
+    })
+  }
+
+  return (
+    <div css={tw`flex justify-between`}>
+      <Button variant="primary" onClick={onPrevious}>
+        Previus
+      </Button>
+      <Button variant="primary" onClick={handleNext}>
+        Next
+      </Button>
+    </div>
+  )
+}
+
+interface FormValues {
+  surveyor: string | null
+  assemblyArea: string | null
+  parliamentaryArea: string | null
+}
+
+const App = () => {
+  const [step, setStep] = useState(1)
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      surveyor: null,
+    },
+    resolver: zodResolver(validation),
+  })
+
+  const handlePrevious = () => {
+    if (step > 1) {
+      setStep(step - 1)
+    }
+  }
+  const handleNext = () => {
+    setStep(step + 1)
+  }
+
+  return (
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit(values => {
+          console.log('values', values)
+        })}
+      >
+        <PagesLayout
+          content={<Content step={step} />}
+          footer={<Footer onPrevious={handlePrevious} onNext={handleNext} />}
+        />
+      </form>
+    </FormProvider>
+  )
+}
 
 export default App
