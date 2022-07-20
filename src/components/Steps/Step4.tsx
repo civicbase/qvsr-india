@@ -12,7 +12,7 @@ const Step4 = () => {
     formState: { errors },
   } = useFormContext()
 
-  const majorCastes = watch('majorCastes')
+  const step = watch('step4')
 
   return (
     <div css={tw`grid grid-cols-1 gap-2`}>
@@ -26,16 +26,20 @@ const Step4 = () => {
         return (
           <div key={caste}>
             <Label css={tw`inline-flex space-x-4 items-center`}>
-              <Checkbox {...register(`majorCastes.${caste}.selected`)} />
+              <Checkbox {...register(`step4.majorCastes[${caste}].selected`)} />
               <span>{name}</span>
             </Label>
 
-            {majorCastes[caste].selected && (
+            {step && step.majorCastes && step.majorCastes[caste].selected && (
               <Input
-                {...register(`majorCastes.${caste}.percentage`, {
+                {...register(`step4.majorCastes[${caste}].percentage`, {
                   required: true,
                   valueAsNumber: true,
                 })}
+                error={
+                  !!errors.step4?.majorCastes &&
+                  !!errors.step4?.majorCastes[caste]?.percentage
+                }
                 type="number"
               />
             )}

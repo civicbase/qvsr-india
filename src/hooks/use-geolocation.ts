@@ -16,6 +16,7 @@ type PositionOptions = {
 type Callback = (geolocation: EnrichedGeolocationCoordinates) => void
 
 const useGeolocation = (
+  userGesture: boolean,
   {
     enableHighAccuracy,
     maximumAge,
@@ -40,7 +41,6 @@ const useGeolocation = (
     let didCancel: boolean
 
     const updateCoordinates = ({ coords = {}, timestamp }: any) => {
-      // console.log('update coordinates success')
       const {
         accuracy,
         altitude,
@@ -96,7 +96,7 @@ const useGeolocation = (
 
     let watchId: number
 
-    if (navigator.geolocation && allowGeolocation) {
+    if (userGesture && navigator.geolocation && allowGeolocation) {
       navigator.geolocation.getCurrentPosition(updateCoordinates, setError)
       watchId = navigator.geolocation.watchPosition(
         updateCoordinates,
@@ -114,7 +114,14 @@ const useGeolocation = (
       }
       didCancel = true
     }
-  }, [callback, enableHighAccuracy, maximumAge, timeout, allowGeolocation])
+  }, [
+    callback,
+    enableHighAccuracy,
+    maximumAge,
+    timeout,
+    allowGeolocation,
+    userGesture,
+  ])
 
   return coordinates
 }

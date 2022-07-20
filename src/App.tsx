@@ -11,20 +11,31 @@ import Recorder, { RecorderMessage, UseRecorder } from 'components/Recorder'
 import useRecorder from 'hooks/use-recorder'
 
 interface FormValues {
-  surveyor: string | null
-  assemblyArea: string | null
-  parliamentaryArea: string | null
+  step1: {
+    surveyor?: string
+  }
+  step2: {
+    assemblyArea?: string
+    parliamentaryArea?: string
+  }
+  step3: {
+    assemblyProfile?: string
+    voterPopulation?: number
+    maleVoterPopulation?: number
+    femaleVoterPopulation?: number
+    avarageVotingPercentage?: number
+    numberBooths?: number
+  }
 }
 
 const App = () => {
   const [step, setStep] = useState(1)
-  const { latitude, longitude } = useGeolocation()
+  const [userGesture, setUserGesture] = useState(false)
+  const { latitude, longitude, error } = useGeolocation(userGesture)
   const { recorderState, ...handlers }: UseRecorder = useRecorder()
 
   const methods = useForm<FormValues>({
-    defaultValues: {
-      surveyor: null,
-    },
+    defaultValues: {},
     resolver: zodResolver(validation),
   })
 
@@ -34,7 +45,11 @@ const App = () => {
     }
   }
   const handleNext = () => {
-    setStep(step + 1)
+    methods.trigger(`step${step}` as any).then(isValid => {
+      if (isValid) {
+        setStep(step + 1)
+      }
+    })
   }
 
   return (
@@ -46,7 +61,14 @@ const App = () => {
       >
         <PagesLayout
           content={<Content step={step} />}
-          footer={<Footer onPrevious={handlePrevious} onNext={handleNext} />}
+          footer={
+            <Footer
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+              hideNext={false}
+              hidePrevious={step === 1}
+            />
+          }
           recording={
             !recorderState.initRecording && (
               <RecorderMessage>
@@ -54,7 +76,14 @@ const App = () => {
               </RecorderMessage>
             )
           }
-          geolocation={(!latitude || !longitude) && <Geolocation />}
+          geolocation={
+            (!latitude || !longitude) && (
+              <Geolocation
+                handleShareGeolocation={() => setUserGesture(true)}
+                error={error}
+              />
+            )
+          }
         />
       </form>
     </FormProvider>

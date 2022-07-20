@@ -1,35 +1,35 @@
-import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
 import Button from 'components/Button'
 
 const Footer = ({
   onPrevious,
   onNext,
+  hidePrevious = false,
+  hideNext = false,
 }: {
   onPrevious: () => void
   onNext: () => void
+  hidePrevious: boolean
+  hideNext: boolean
 }) => {
-  const {
-    trigger,
-    formState: { errors },
-  } = useFormContext()
-
-  const handleNext = () => {
-    trigger().then(isValid => {
-      if (isValid) {
-        onNext()
-      }
-    })
-  }
-
   return (
-    <div css={tw`flex justify-between`}>
-      <Button variant="primary" onClick={onPrevious}>
-        Previus
-      </Button>
-      <Button variant="primary" onClick={handleNext}>
-        Next
-      </Button>
+    <div css={[tw`flex justify-between`, hidePrevious && tw`justify-end`]}>
+      {!hidePrevious && (
+        <Button variant="primary" onClick={onPrevious}>
+          Previous
+        </Button>
+      )}
+      {!hideNext && (
+        <Button variant="primary" onClick={onNext}>
+          Next
+        </Button>
+      )}
+
+      {false && (
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      )}
     </div>
   )
 }

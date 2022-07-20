@@ -31,7 +31,7 @@ const Step2 = () => {
       <div>
         <Label>Assembly Area *</Label>
         <Controller
-          name="assemblyArea"
+          name="step2.assemblyArea"
           control={control}
           render={({ field }) => (
             <Dropdown
@@ -39,17 +39,17 @@ const Step2 = () => {
               value={field.value}
               onChange={field.onChange}
               placeholder="Select assembly area"
-              // error={errors?.assemblyArea}
+              error={!!errors?.step2?.assemblyArea}
             />
           )}
         />
-        <FieldErrorMessage name="assemblyArea" errors={errors} />
+        <FieldErrorMessage name="step2.assemblyArea" errors={errors} />
       </div>
 
       <div>
         <Label>Parliamentary Area *</Label>
         <Controller
-          name="parliamentaryArea"
+          name="step2.parliamentaryArea"
           control={control}
           render={({ field }) => (
             <Dropdown
@@ -57,11 +57,11 @@ const Step2 = () => {
               value={field.value}
               onChange={field.onChange}
               placeholder="Select parliamentary area"
-              // error={errors?.parliamentaryArea}
+              error={!!errors?.step2?.parliamentaryArea}
             />
           )}
         />
-        <FieldErrorMessage name="parliamentaryArea" errors={errors} />
+        <FieldErrorMessage name="step2.parliamentaryArea" errors={errors} />
       </div>
     </div>
   )

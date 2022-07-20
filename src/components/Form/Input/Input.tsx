@@ -8,7 +8,7 @@ const Input = styled.input<{ error?: boolean; modified?: boolean }>(
     tw`dark:(text-white bg-gray-700 border-gray-600)`,
     modified && tw`border-indigo-600 border-opacity-60`,
     error &&
-      tw`border-error-300 border-opacity-60 focus:(ring-2 ring-red-300 border-red-300)`,
+      tw`!border-error-300 !border-opacity-60 focus:(ring-2 !ring-red-300 !border-red-300)`,
   ],
 )
 

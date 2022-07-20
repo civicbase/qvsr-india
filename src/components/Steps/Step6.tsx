@@ -95,7 +95,7 @@ const Step6 = () => {
           const name = caste.charAt(0).toUpperCase() + caste.slice(1)
 
           return (
-            <Label css={tw`inline-flex space-x-4 items-center`}>
+            <Label css={tw`inline-flex space-x-4 items-center`} key={caste}>
               <Radio {...register('winnerCaste')} value={caste} />
               <span>{name}</span>
             </Label>

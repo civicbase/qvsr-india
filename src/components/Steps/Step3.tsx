@@ -17,70 +17,84 @@ const Step3 = () => {
         <Label>Assembly Profile</Label>
 
         <Textarea
-          {...register('assemblyProfile')}
-          error={!!errors.assemblyProfile}
+          {...register('step3.assemblyProfile')}
+          error={!!errors.step3?.assemblyProfile}
           rows={4}
         />
-        <FieldErrorMessage name="assemblyProfile" errors={errors} />
       </div>
 
       <div>
         <Label>Voter Population *</Label>
+
         <Input
-          {...register('voterPopulation', {
+          {...register('step3.voterPopulation', {
             required: true,
             valueAsNumber: true,
           })}
-          error={!!errors.voterPopulation}
+          error={!!errors.step3?.voterPopulation}
           type="number"
         />
-        <FieldErrorMessage name="voterPopulation" errors={errors} />
+
+        <FieldErrorMessage name="step3.voterPopulation" errors={errors} />
       </div>
 
       <div>
         <Label>Male Voter Population *</Label>
+
         <Input
-          {...register('maleVoterPopulation', {
+          {...register('step3.maleVoterPopulation', {
             required: true,
             valueAsNumber: true,
           })}
-          error={!!errors.maleVoterPopulation}
+          error={!!errors.step3?.maleVoterPopulation}
           type="number"
         />
-        <FieldErrorMessage name="maleVoterPopulation" errors={errors} />
+
+        <FieldErrorMessage name="step3.maleVoterPopulation" errors={errors} />
       </div>
 
       <div>
         <Label>Female Voter Population *</Label>
+
         <Input
-          {...register('femaleVoterPopulation', {
+          {...register('step3.femaleVoterPopulation', {
             required: true,
             valueAsNumber: true,
           })}
-          error={!!errors.femaleVoterPopulation}
+          error={!!errors.step3?.femaleVoterPopulation}
           type="number"
         />
-        <FieldErrorMessage name="femaleVoterPopulation" errors={errors} />
+
+        <FieldErrorMessage name="step3.femaleVoterPopulation" errors={errors} />
       </div>
 
       <div>
         <Label>Avarage voting percentage *</Label>
+
         <Input
-          {...register('avarageVotingPercentage', { valueAsNumber: true })}
-          error={!!errors.avarageVotingPercentage}
+          {...register('step3.avarageVotingPercentage', {
+            valueAsNumber: true,
+          })}
+          error={!!errors.step3?.avarageVotingPercentage}
           type="number"
         />
-        <FieldErrorMessage name="avarageVotingPercentage" errors={errors} />
+
+        <FieldErrorMessage
+          name="step3.avarageVotingPercentage"
+          errors={errors}
+        />
       </div>
 
       <div>
         <Label>Number of Booths *</Label>
+
         <Input
-          {...register('numberBooths', { valueAsNumber: true })}
-          error={!!errors.numberBooths}
+          {...register('step3.numberBooths', { valueAsNumber: true })}
+          error={!!errors.step3?.numberBooths}
           type="number"
         />
-        <FieldErrorMessage name="numberBooths" errors={errors} />
+
+        <FieldErrorMessage name="step3.numberBooths" errors={errors} />
       </div>
     </div>
   )

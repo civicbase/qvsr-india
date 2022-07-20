@@ -15,7 +15,7 @@ const StyledTransition = styled(Transition)`
 `
 
 const Dropdown = ({ children }: { children: ReactNode }) => {
-  return <StyledTransition as={Fragment as any}>{children}</StyledTransition>
+  return <StyledTransition>{children}</StyledTransition>
 }
 
 export default Dropdown

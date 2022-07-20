@@ -13,11 +13,11 @@ const Step1 = () => {
     <div>
       <Label>Name of Surveyor (full name)*</Label>
       <Input
-        {...register('surveyor', { required: true })}
-        error={!!errors.surveyor}
+        {...register('step1.surveyor', { required: true })}
+        error={!!errors?.step1?.surveyor}
         autoFocus
       />
-      <FieldErrorMessage name="surveyor" errors={errors} />
+      <FieldErrorMessage name="step1.surveyor" errors={errors} />
     </div>
   )
 }

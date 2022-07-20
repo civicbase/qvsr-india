@@ -26,7 +26,7 @@ const PagesLayout = ({
     <div css={styles.container({ hasBackground: true })}>
       <Card css={tw`relative`}>
         {geolocation}
-        {recording}
+        {/* {recording} */}
         <div css={tw`flex-1 overflow-y-auto px-2`}>{content}</div>
         <div css={tw`justify-end`}>{footer}</div>
       </Card>
