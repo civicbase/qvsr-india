@@ -6,7 +6,7 @@ const RecorderMessage = ({ children }: { children: React.ReactNode }) => {
     <div
       css={tw`backdrop-blur-3xl absolute w-full h-full left-0 bg-white bg-opacity-90 flex justify-center items-center flex-col z-40`}
     >
-      Please recording to continue
+      Please start the recording
       {children}
     </div>
   )

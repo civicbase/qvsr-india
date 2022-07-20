@@ -1,6 +1,5 @@
 import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
-import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
 import Checkbox from 'components/Form/Checkbox'
@@ -56,7 +55,7 @@ const Step8 = () => {
                 <span>{candidate}</span>
               </Label>
 
-              {candidates[index].selected && (
+              {candidates && candidates[index].selected && (
                 <Input
                   {...register(`bjpCandidates.${index}.name`, {
                     required: true,
@@ -83,7 +82,7 @@ const Step8 = () => {
                 <span>{candidate}</span>
               </Label>
 
-              {castes[index].selected && (
+              {castes && castes[index].selected && (
                 <Input
                   {...register(`bjpCandidatesCastes.${index}.caste`, {
                     required: true,

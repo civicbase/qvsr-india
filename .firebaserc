@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "civic-base"
+  },
+  "targets": {
+    "civic-base": {
+      "hosting": {
+        "india": [
+          "india-civicbase"
+        ]
+      }
+    }
+  }
+}
