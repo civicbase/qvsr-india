@@ -22,54 +22,59 @@ const Step5 = () => {
 
         <div css={tw`grid grid-cols-1 gap-2`}>
           <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('winners2017')} value="bharatiya" />
+            <Radio {...register('step5.winners2017')} value="bharatiya" />
             <span>Bharatiya Janata Party</span>
           </Label>
 
           <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('winners2017')} value="national" />
+            <Radio {...register('step5.winners2017')} value="national" />
             <span>Indian National Congress</span>
           </Label>
 
           <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('winners2017')} value="bahujan" />
+            <Radio {...register('step5.winners2017')} value="bahujan" />
             <span>Bahujan samaj party</span>
           </Label>
 
           <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('winners2017')} value="communist" />
+            <Radio {...register('step5.winners2017')} value="communist" />
             <span>Communist Party of India (Marxist)</span>
           </Label>
 
           <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('winners2017')} value="independent" />
+            <Radio {...register('step5.winners2017')} value="independent" />
             <span>Independent</span>
           </Label>
 
           <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('winners2017')} value="other" />
+            <Radio {...register('step5.winners2017')} value="other" />
             <span>Other</span>
           </Label>
         </div>
+
+        <FieldErrorMessage name="step5.winners2017" errors={errors} />
       </div>
 
       <div>
         <Label>Vote Share (in porcentage)*</Label>
         <Input
-          {...register('assemblyProfile', { valueAsNumber: true })}
-          error={!!errors.assemblyProfile}
+          {...register('step5.voteShare', {
+            valueAsNumber: true,
+            required: true,
+          })}
+          error={!!errors.step5?.voteShare}
           type="number"
         />
-        <FieldErrorMessage name="assemblyProfile" errors={errors} />
+        <FieldErrorMessage name="step5.voteShare" errors={errors} />
       </div>
 
       <div>
         <Label>Current MLA (full name) *</Label>
         <Input
-          {...register('assemblyProfile')}
-          error={!!errors.assemblyProfile}
+          {...register('step5.currentMLA.name')}
+          error={!!errors.step5?.currentMLA?.name}
         />
-        <FieldErrorMessage name="assemblyProfile" errors={errors} />
+        <FieldErrorMessage name="step5.currentMLA.name" errors={errors} />
       </div>
 
       <div css={tw`grid grid-cols-1 gap-2`}>
@@ -80,17 +85,24 @@ const Step5 = () => {
 
           return (
             <Label css={tw`inline-flex space-x-4 items-center`} key={caste}>
-              <Radio {...register('winnerCaste')} value={caste} />
+              <Radio {...register('step5.currentMLA.caste')} value={caste} />
               <span>{name}</span>
             </Label>
           )
         })}
+
+        <FieldErrorMessage name="step5.currentMLA.caste" errors={errors} />
       </div>
 
       <div>
         <Label>Evaluate the performance of the sitting MLA (1-5) *</Label>
 
-        <Rating />
+        <Rating {...register('step5.currentMLA.performance')} />
+
+        <FieldErrorMessage
+          name="step5.currentMLA.performance"
+          errors={errors}
+        />
       </div>
 
       <div>
@@ -101,15 +113,20 @@ const Step5 = () => {
 
         <div css={tw`grid grid-cols-1 gap-2`}>
           <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('isMLAholdsPosition')} value="yes" />
+            <Radio {...register('step5.currentMLA.hasPosition')} value="yes" />
             <span>Yes</span>
           </Label>
 
           <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('isMLAholdsPosition')} value="no" />
+            <Radio {...register('step5.currentMLA.hasPosition')} value="no" />
             <span>No</span>
           </Label>
         </div>
+
+        <FieldErrorMessage
+          name="step5.currentMLA.hasPosition"
+          errors={errors}
+        />
       </div>
 
       <div css={tw`grid grid-cols-1 gap-2`}>
@@ -118,37 +135,37 @@ const Step5 = () => {
         </Label>
 
         <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('majorCastes.brahmin', { required: true })} />
+          <Checkbox {...register(`step5.winReasons[strong opposition]`)} />
           <span>Strong opposition</span>
         </Label>
 
         <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('majorCastes.brahmin', { required: true })} />
+          <Checkbox {...register(`step5.winReasons[a]`)} />
           <span>Caste factor</span>
         </Label>
 
         <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('majorCastes.brahmin', { required: true })} />
+          <Checkbox {...register(`step5.winReasons[a]`)} />
           <span>Party worker</span>
         </Label>
 
         <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('majorCastes.brahmin', { required: true })} />
+          <Checkbox {...register(`step5.winReasons[a]`)} />
           <span>Candidate's image</span>
         </Label>
 
         <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('majorCastes.brahmin', { required: true })} />
+          <Checkbox {...register(`step5.winReasons[a]`)} />
           <span>Party national leadership</span>
         </Label>
 
         <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('majorCastes.brahmin', { required: true })} />
+          <Checkbox {...register(`step5.winReasons[a]`)} />
           <span>Local leadership</span>
         </Label>
 
         <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('majorCastes.brahmin', { required: true })} />
+          <Checkbox {...register(`step5.winReasons[a]`)} />
           <span>Other</span>
         </Label>
       </div>

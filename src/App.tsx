@@ -26,6 +26,24 @@ interface FormValues {
     avarageVotingPercentage?: number
     numberBooths?: number
   }
+  step4: {
+    majorCastes: {
+      [caste: string]: {
+        selected?: string
+        percentage?: number
+      }
+    }
+  }
+  step5: {
+    winners2017?: string
+    voteShare?: number
+    currentMLA: {
+      name?: string
+      caste?: string
+      performance?: number
+      hasPosition?: string
+    }
+  }
 }
 
 const App = () => {
