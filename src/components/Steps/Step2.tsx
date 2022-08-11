@@ -3,24 +3,10 @@ import Dropdown from 'components/Dropdown'
 import Label from 'components/Form/Label'
 import { Controller, useFormContext } from 'react-hook-form'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import assemblyAreas from 'utils/assemblyAreas'
+import parliamentaryAreas from 'utils/parliamentaryAreas'
 
 const Step2 = () => {
-  const assemblyAreas = [
-    'Agree/Disagree',
-    'Favor/Opose',
-    'Aprove/Reject',
-    'Aye/Nay',
-    'Custom',
-  ]
-
-  const parliamentaryAreas = [
-    'Agree/Disagree',
-    'Favor/Opose',
-    'Aprove/Reject',
-    'Aye/Nay',
-    'Custom',
-  ]
-
   const {
     control,
     formState: { errors },

@@ -6,13 +6,13 @@ import { useFormContext } from 'react-hook-form'
 const FillStar = () => <AiFillStar size={22} color={theme`colors.bgColor9`} />
 const UnfillStar = () => <AiOutlineStar size={22} />
 
-const Rating = ({ ...props }) => {
+const Rating = ({ name }: { name: string }) => {
   const [rate, setRate] = useState(0)
   const { setValue } = useFormContext()
 
   const handleRateChange = (newRate: number) => {
     setRate(newRate)
-    setValue(props.name, newRate)
+    setValue(name, newRate)
   }
 
   return (

@@ -13,15 +13,17 @@ const Footer = ({
   hideNext: boolean
 }) => {
   return (
-    <div css={[tw`flex justify-between`, hidePrevious && tw`justify-end`]}>
+    <div
+      css={[tw`flex justify-evenly mt-3`, hidePrevious && tw`justify-center`]}
+    >
       {!hidePrevious && (
-        <Button variant="primary" onClick={onPrevious}>
+        <Button variant="secondary" onClick={onPrevious}>
           Previous
         </Button>
       )}
       {!hideNext && (
         <Button variant="primary" onClick={onNext}>
-          Next
+          {hidePrevious ? 'Start Survey' : 'Next'}
         </Button>
       )}
 

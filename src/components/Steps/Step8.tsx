@@ -3,6 +3,8 @@ import tw from 'twin.macro'
 import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
 import Checkbox from 'components/Form/Checkbox'
+import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import { isDisabledOption } from 'utils/isDisabledOption'
 
 const Step8 = () => {
   const bjpCandidates = [
@@ -35,10 +37,13 @@ const Step8 = () => {
     formState: { errors },
   } = useFormContext()
 
-  const candidates = watch('bjpCandidates')
-  const castes = watch('bjpCandidatesCastes')
-  const profession = watch('bjpCandidatesProfession')
-  const posts = watch('bjpCandidatesPost')
+  const candidates = watch('step8.bjpCandidates')
+  const castes = watch('step8.bjpCandidatesCastes')
+  const candidateWealth = watch('step8.bjpCandidatesWealth')
+  const popular = watch('step8.bjpCandidatesPopularity')
+  const profession = watch('step8.bjpCandidatesProfession')
+  const posts = watch('step8.bjpCandidatesPost')
+  const winnableCandidate = watch('step8.winnableCandidate')
 
   return (
     <div css={tw`grid grid-cols-1 gap-6`}>
@@ -51,13 +56,15 @@ const Step8 = () => {
           return (
             <div key={candidate}>
               <Label css={tw`inline-flex space-x-4 items-center`}>
-                <Checkbox {...register(`bjpCandidates.${index}.selected`)} />
+                <Checkbox
+                  {...register(`step8.bjpCandidates.${index}.selected`)}
+                />
                 <span>{candidate}</span>
               </Label>
 
               {candidates && candidates[index].selected && (
                 <Input
-                  {...register(`bjpCandidates.${index}.name`, {
+                  {...register(`step8.bjpCandidates.${index}.name`, {
                     required: true,
                   })}
                 />
@@ -65,6 +72,8 @@ const Step8 = () => {
             </div>
           )
         })}
+
+        <FieldErrorMessage name="step8.bjpCandidates" errors={errors} />
       </div>
 
       <div>
@@ -77,14 +86,14 @@ const Step8 = () => {
             <div key={candidate}>
               <Label css={tw`inline-flex space-x-4 items-center`}>
                 <Checkbox
-                  {...register(`bjpCandidatesCastes.${index}.selected`)}
+                  {...register(`step8.bjpCandidatesCastes.${index}.selected`)}
                 />
                 <span>{candidate}</span>
               </Label>
 
               {castes && castes[index].selected && (
                 <Input
-                  {...register(`bjpCandidatesCastes.${index}.caste`, {
+                  {...register(`step8.bjpCandidatesCastes.${index}.caste`, {
                     required: true,
                   })}
                 />
@@ -106,10 +115,18 @@ const Step8 = () => {
             <div key={candidate}>
               <Label css={tw`inline-flex space-x-4 items-center`}>
                 <Checkbox
-                  {...register(`bjpCandidatesWealth.${index}.selected`)}
+                  {...register(`step8.bjpCandidatesWealth.${index}.selected`)}
                 />
                 <span>{candidate}</span>
               </Label>
+
+              {candidateWealth && candidateWealth[index].selected && (
+                <Input
+                  {...register(`step8.bjpCandidatesWealth.${index}.desc`, {
+                    required: true,
+                  })}
+                />
+              )}
             </div>
           )
         })}
@@ -127,10 +144,20 @@ const Step8 = () => {
             <div key={candidate}>
               <Label css={tw`inline-flex space-x-4 items-center`}>
                 <Checkbox
-                  {...register(`bjpCandidatesPopularity.${index}.selected`)}
+                  {...register(
+                    `step8.bjpCandidatesPopularity.${index}.selected`,
+                  )}
                 />
                 <span>{candidate}</span>
               </Label>
+
+              {popular && popular[index].selected && (
+                <Input
+                  {...register(`step8.bjpCandidatesPopularity.${index}.desc`, {
+                    required: true,
+                  })}
+                />
+              )}
             </div>
           )
         })}
@@ -144,16 +171,21 @@ const Step8 = () => {
             <div key={candidate}>
               <Label css={tw`inline-flex space-x-4 items-center`}>
                 <Checkbox
-                  {...register(`bjpCandidatesProfession.${index}.selected`)}
+                  {...register(
+                    `step8.bjpCandidatesProfession.${index}.selected`,
+                  )}
                 />
                 <span>{candidate}</span>
               </Label>
 
               {profession && profession[index].selected && (
                 <Input
-                  {...register(`bjpCandidatesProfession.${index}.profession`, {
-                    required: true,
-                  })}
+                  {...register(
+                    `step8.bjpCandidatesProfession.${index}.profession`,
+                    {
+                      required: true,
+                    },
+                  )}
                 />
               )}
             </div>
@@ -166,7 +198,23 @@ const Step8 = () => {
           In your opinion, if candidate is given ticket then who is more
           winnable (choose any one) *
         </Label>
-        TODO
+
+        {bjpCandidatesDesc.map(desc => {
+          const disabled = isDisabledOption(desc, winnableCandidate, 1)
+
+          return (
+            <div key={desc}>
+              <Label css={tw`inline-flex space-x-4 items-center`}>
+                <Checkbox
+                  {...register(`step8.winnableCandidate`)}
+                  value={desc}
+                  disabled={disabled}
+                />
+                <span>{desc}</span>
+              </Label>
+            </div>
+          )
+        })}
       </div>
 
       <div>
@@ -179,14 +227,14 @@ const Step8 = () => {
             <div key={candidate}>
               <Label css={tw`inline-flex space-x-4 items-center`}>
                 <Checkbox
-                  {...register(`bjpCandidatesPost.${index}.selected`)}
+                  {...register(`step8.bjpCandidatesPost.${index}.selected`)}
                 />
                 <span>{candidate}</span>
               </Label>
 
               {posts && posts[index].selected && (
                 <Input
-                  {...register(`bjpCandidatesPost.${index}.post`, {
+                  {...register(`step8.bjpCandidatesPost.${index}.post`, {
                     required: true,
                   })}
                 />

@@ -6,12 +6,19 @@ import Label from 'components/Form/Label'
 import Checkbox from 'components/Form/Checkbox'
 import Radio from 'components/Form/Radio'
 import { castes } from 'utils/castes'
+import parties from 'utils/parties'
+import reasons from 'utils/reasons'
+import { isDisabledOption } from 'utils/isDisabledOption'
 
 const Step6 = () => {
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext()
+
+  const lossreasons = watch('step6.lossReason')
+  const party = watch('step6.firstRunnersAssemblyElections.party')
 
   return (
     <div css={tw`grid grid-cols-1 gap-6`}>
@@ -19,53 +26,19 @@ const Step6 = () => {
         <Label>First Runner-up in 2017 Assembly Elections (Party) *</Label>
 
         <div css={tw`grid grid-cols-1 gap-2`}>
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio
-              {...register('step6.firstRunnersAssemblyElections.party')}
-              value="bharatiya"
-            />
-            <span>Bharatiya Janata Party</span>
-          </Label>
+          {parties.map(party => (
+            <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Radio
+                {...register('step6.firstRunnersAssemblyElections.party')}
+                value={party}
+              />
+              <span>{party}</span>
+            </Label>
+          ))}
 
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio
-              {...register('step6.firstRunnersAssemblyElections.party')}
-              value="national"
-            />
-            <span>Indian National Congress</span>
-          </Label>
-
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio
-              {...register('step6.firstRunnersAssemblyElections.party')}
-              value="bahujan"
-            />
-            <span>Bahujan samaj party</span>
-          </Label>
-
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio
-              {...register('step6.firstRunnersAssemblyElections.party')}
-              value="communist"
-            />
-            <span>Communist Party of India (Marxist)</span>
-          </Label>
-
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio
-              {...register('step6.firstRunnersAssemblyElections.party')}
-              value="independent"
-            />
-            <span>Independent</span>
-          </Label>
-
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio
-              {...register('step6.firstRunnersAssemblyElections.party')}
-              value="other"
-            />
-            <span>Other</span>
-          </Label>
+          {party === 'Other' && (
+            <Input {...register('step6.firstRunnersAssemblyElections.other')} />
+          )}
         </div>
 
         <FieldErrorMessage
@@ -142,40 +115,20 @@ const Step6 = () => {
           What do you think is the main cause of loss (Choose any 3 reasons) *
         </Label>
 
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('step6.lossReason')} />
-          <span>Strong opposition</span>
-        </Label>
+        {reasons.map(reason => {
+          const disabled = isDisabledOption(reason, lossreasons, 3)
 
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('step6.lossReason')} />
-          <span>Caste factor</span>
-        </Label>
-
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('step6.lossReason')} />
-          <span>Party worker</span>
-        </Label>
-
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('step6.lossReason')} />
-          <span>Candidate's image</span>
-        </Label>
-
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('step6.lossReason')} />
-          <span>Party national leadership</span>
-        </Label>
-
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('step6.lossReason')} />
-          <span>Local leadership</span>
-        </Label>
-
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register('step6.lossReason')} />
-          <span>Other</span>
-        </Label>
+          return (
+            <Label key={reason} css={tw`inline-flex space-x-4 items-center`}>
+              <Checkbox
+                {...register(`step6.lossReason`)}
+                value={reason}
+                disabled={disabled}
+              />
+              <span>{reason}</span>
+            </Label>
+          )
+        })}
       </div>
 
       <FieldErrorMessage name="step6.lossReason" errors={errors} />

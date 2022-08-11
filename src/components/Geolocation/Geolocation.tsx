@@ -1,6 +1,5 @@
 import tw from 'twin.macro'
 import Button from 'components/Button'
-import { BsGeoAltFill } from 'react-icons/bs'
 
 type GeolocationMessageProps = {
   error?: GeolocationPositionError
@@ -15,15 +14,16 @@ const GeolocationMessage = ({
     <div
       css={tw`backdrop-blur-3xl absolute w-full h-full left-0 bg-white bg-opacity-90 flex justify-center items-center flex-col z-50`}
     >
+      <img
+        src={`${process.env.PUBLIC_URL}/assets/location.png`}
+        alt="location"
+      />
       <Button
         variant="primary"
         onClick={handleShareGeolocation}
         css={tw`flex items-center`}
       >
-        <div css={tw`mr-4`}>
-          <BsGeoAltFill size={18} />
-        </div>
-        Share my location
+        Enable Location
       </Button>
       {error && <div>Reason: {error.message}</div>}
     </div>

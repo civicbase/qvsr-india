@@ -9,6 +9,7 @@ import useGeolocation from 'hooks/use-geolocation'
 import Footer from 'components/Footer'
 import Recorder, { RecorderMessage, UseRecorder } from 'components/Recorder'
 import useRecorder from 'hooks/use-recorder'
+import Header from 'components/Header'
 
 interface FormValues {
   step1: {
@@ -79,6 +80,7 @@ const App = () => {
       >
         <PagesLayout
           content={<Content step={step} />}
+          header={<Header />}
           footer={
             <Footer
               onPrevious={handlePrevious}

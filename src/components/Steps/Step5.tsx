@@ -7,6 +7,9 @@ import Checkbox from 'components/Form/Checkbox'
 import Radio from 'components/Form/Radio'
 import { castes } from 'utils/castes'
 import Rating from 'components/Rating'
+import reasons from 'utils/reasons'
+import parties from 'utils/parties'
+import { isDisabledOption } from 'utils/isDisabledOption'
 
 const Step5 = () => {
   const {
@@ -15,44 +18,28 @@ const Step5 = () => {
     formState: { errors },
   } = useFormContext()
 
+  const winReasons = watch('step5.winReasons')
+  const winners2017 = watch('step5.winners2017.party')
+
   return (
     <div css={tw`grid grid-cols-1 gap-6`}>
       <div>
         <Label>Winners of 2017 assembly elections *</Label>
 
         <div css={tw`grid grid-cols-1 gap-2`}>
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('step5.winners2017')} value="bharatiya" />
-            <span>Bharatiya Janata Party</span>
-          </Label>
+          {parties.map(party => (
+            <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Radio {...register('step5.winners2017.party')} value={party} />
+              <span>{party}</span>
+            </Label>
+          ))}
 
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('step5.winners2017')} value="national" />
-            <span>Indian National Congress</span>
-          </Label>
-
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('step5.winners2017')} value="bahujan" />
-            <span>Bahujan samaj party</span>
-          </Label>
-
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('step5.winners2017')} value="communist" />
-            <span>Communist Party of India (Marxist)</span>
-          </Label>
-
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('step5.winners2017')} value="independent" />
-            <span>Independent</span>
-          </Label>
-
-          <Label css={tw`inline-flex space-x-4 items-center`}>
-            <Radio {...register('step5.winners2017')} value="other" />
-            <span>Other</span>
-          </Label>
+          {winners2017 === 'Other' && (
+            <Input {...register('step5.winners2017.other')} />
+          )}
         </div>
 
-        <FieldErrorMessage name="step5.winners2017" errors={errors} />
+        <FieldErrorMessage name="step5.winners2017.party" errors={errors} />
       </div>
 
       <div>
@@ -97,7 +84,7 @@ const Step5 = () => {
       <div>
         <Label>Evaluate the performance of the sitting MLA (1-5) *</Label>
 
-        <Rating {...register('step5.currentMLA.performance')} />
+        <Rating name="step5.currentMLA.performance" />
 
         <FieldErrorMessage
           name="step5.currentMLA.performance"
@@ -121,6 +108,8 @@ const Step5 = () => {
             <Radio {...register('step5.currentMLA.hasPosition')} value="no" />
             <span>No</span>
           </Label>
+
+          <Input {...register('step5.currentMLA.profile')} />
         </div>
 
         <FieldErrorMessage
@@ -134,40 +123,27 @@ const Step5 = () => {
           What was the main reason in the win (select up to 3 reasons)*
         </Label>
 
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register(`step5.winReasons[strong opposition]`)} />
-          <span>Strong opposition</span>
-        </Label>
+        {reasons.map(reason => {
+          const disabled = isDisabledOption(reason, winReasons, 3)
 
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register(`step5.winReasons[a]`)} />
-          <span>Caste factor</span>
-        </Label>
+          return (
+            <Label key={reason} css={tw`inline-flex space-x-4 items-center`}>
+              <Checkbox
+                {...register(`step5.winReasons`)}
+                value={reason}
+                disabled={disabled}
+              />
+              <span>{reason}</span>
+            </Label>
+          )
+        })}
 
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register(`step5.winReasons[a]`)} />
-          <span>Party worker</span>
-        </Label>
+        <FieldErrorMessage name="step5.winReasons" errors={errors} />
 
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register(`step5.winReasons[a]`)} />
-          <span>Candidate's image</span>
-        </Label>
-
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register(`step5.winReasons[a]`)} />
-          <span>Party national leadership</span>
-        </Label>
-
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register(`step5.winReasons[a]`)} />
-          <span>Local leadership</span>
-        </Label>
-
-        <Label css={tw`inline-flex space-x-4 items-center`}>
-          <Checkbox {...register(`step5.winReasons[a]`)} />
-          <span>Other</span>
-        </Label>
+        {winReasons &&
+          winReasons?.find((reason: string) => reason === 'Other') && (
+            <Input {...register('step5.winReasonsOther')} />
+          )}
       </div>
     </div>
   )
