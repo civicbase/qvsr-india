@@ -5,32 +5,12 @@ import Label from 'components/Form/Label'
 import Checkbox from 'components/Form/Checkbox'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import { isDisabledOption } from 'utils/isDisabledOption'
+import bjpCandidates from 'utils/bjpCandidates'
+import bjpCandidatesCastes from 'utils/bjpCandidatesCastes'
+import bjpCandidatesDesc from 'utils/bjpCandidatesDesc'
+import bjpCandidatesProfession from 'utils/bjpCandidatesProfession'
 
 const Step8 = () => {
-  const bjpCandidates = [
-    'Number one candidate name',
-    `No. 2 candidate's name`,
-    'Name of the number three candidate',
-  ]
-
-  const bjpCandidatesCastes = [
-    `Number one candidate's caste`,
-    `No. 2 candidate's caste`,
-    `No. 3 candidate's caste`,
-  ]
-
-  const bjpCandidatesDesc = [
-    `Number one candidate`,
-    `Number two candidate`,
-    `Number three candidate`,
-  ]
-
-  const bjpCandidatesProfession = [
-    `Number one candidate's profession`,
-    `No. 2 candidate's profession`,
-    `Number three candidate's profession`,
-  ]
-
   const {
     register,
     watch,
@@ -42,8 +22,8 @@ const Step8 = () => {
   const candidateWealth = watch('step8.bjpCandidatesWealth')
   const popular = watch('step8.bjpCandidatesPopularity')
   const profession = watch('step8.bjpCandidatesProfession')
-  const posts = watch('step8.bjpCandidatesPost')
   const winnableCandidate = watch('step8.winnableCandidate')
+  const posts = watch('step8.bjpCandidatesPost')
 
   return (
     <div css={tw`grid grid-cols-1 gap-6`}>
@@ -101,6 +81,8 @@ const Step8 = () => {
             </div>
           )
         })}
+
+        <FieldErrorMessage name="step8.bjpCandidatesCastes" errors={errors} />
       </div>
 
       <div>
@@ -122,7 +104,7 @@ const Step8 = () => {
 
               {candidateWealth && candidateWealth[index].selected && (
                 <Input
-                  {...register(`step8.bjpCandidatesWealth.${index}.desc`, {
+                  {...register(`step8.bjpCandidatesWealth.${index}.name`, {
                     required: true,
                   })}
                 />
@@ -130,6 +112,8 @@ const Step8 = () => {
             </div>
           )
         })}
+
+        <FieldErrorMessage name="step8.bjpCandidatesWealth" errors={errors} />
       </div>
 
       <div>
@@ -153,7 +137,7 @@ const Step8 = () => {
 
               {popular && popular[index].selected && (
                 <Input
-                  {...register(`step8.bjpCandidatesPopularity.${index}.desc`, {
+                  {...register(`step8.bjpCandidatesPopularity.${index}.name`, {
                     required: true,
                   })}
                 />
@@ -161,6 +145,11 @@ const Step8 = () => {
             </div>
           )
         })}
+
+        <FieldErrorMessage
+          name="step8.bjpCandidatesPopularity"
+          errors={errors}
+        />
       </div>
 
       <div>
@@ -191,6 +180,11 @@ const Step8 = () => {
             </div>
           )
         })}
+
+        <FieldErrorMessage
+          name="step8.bjpCandidatesProfession"
+          errors={errors}
+        />
       </div>
 
       <div>
@@ -215,6 +209,8 @@ const Step8 = () => {
             </div>
           )
         })}
+
+        <FieldErrorMessage name="step8.winnableCandidate" errors={errors} />
       </div>
 
       <div>
@@ -242,6 +238,8 @@ const Step8 = () => {
             </div>
           )
         })}
+
+        <FieldErrorMessage name="step8.bjpCandidatesPost" errors={errors} />
       </div>
     </div>
   )

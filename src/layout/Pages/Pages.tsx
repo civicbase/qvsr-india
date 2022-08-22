@@ -29,7 +29,7 @@ const PagesLayout = ({
       <Card css={tw`relative`}>
         {header}
         {geolocation}
-        {/* {recording} */}
+        {recording}
         <div css={tw`flex-1 overflow-y-auto px-2`}>{content}</div>
         <div css={tw`justify-end`}>{footer}</div>
       </Card>

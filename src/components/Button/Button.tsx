@@ -1,7 +1,7 @@
 import tw, { styled } from 'twin.macro'
 
 const Button = styled.button.attrs(({ type = 'button' }) => ({ type }))(
-  ({ variant }: { variant: 'primary' | 'secondary' }) => [
+  ({ variant }: { variant: 'primary' | 'secondary' | 'tertiary' }): any => [
     // The common button styles added with the tw import
     tw`px-8 py-2 rounded focus:outline-none transform duration-75`,
 
@@ -13,6 +13,7 @@ const Button = styled.button.attrs(({ type = 'button' }) => ({ type }))(
 
     // Combine regular css with tailwind classes within backticks
     variant === 'secondary' && [tw`border-2 text-brand border-brand`],
+    variant === 'tertiary' && [tw`bg-brand2 text-white`],
   ],
 )
 

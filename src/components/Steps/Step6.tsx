@@ -27,7 +27,7 @@ const Step6 = () => {
 
         <div css={tw`grid grid-cols-1 gap-2`}>
           {parties.map(party => (
-            <Label css={tw`inline-flex space-x-4 items-center`}>
+            <Label css={tw`inline-flex space-x-4 items-center`} key={party}>
               <Radio
                 {...register('step6.firstRunnersAssemblyElections.party')}
                 value={party}

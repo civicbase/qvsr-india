@@ -5,11 +5,12 @@ export const isDisabledOption = (
 ): boolean => {
   if (options) {
     const found = options.find((r: string) => r === option)
+
     if (found) {
       return false
     }
 
-    if (options.length >= 1) {
+    if (options.length >= max) {
       return true
     } else {
       return false

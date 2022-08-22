@@ -10,8 +10,11 @@ import Footer from 'components/Footer'
 import Recorder, { RecorderMessage, UseRecorder } from 'components/Recorder'
 import useRecorder from 'hooks/use-recorder'
 import Header from 'components/Header'
+import useAsync from 'hooks/use-async'
+import { createAnswer } from 'services/answer'
 
 interface FormValues {
+  recording: boolean
   step1: {
     surveyor?: string
   }
@@ -51,12 +54,20 @@ const App = () => {
   const [step, setStep] = useState(1)
   const [userGesture, setUserGesture] = useState(false)
   const { latitude, longitude, error } = useGeolocation(userGesture)
-  const { recorderState, ...handlers }: UseRecorder = useRecorder()
+  const { recorderState, saveRecording, ...handlers }: UseRecorder =
+    useRecorder()
+  const { run } = useAsync()
 
   const methods = useForm<FormValues>({
-    defaultValues: {},
+    defaultValues: {
+      recording: false,
+    },
     resolver: zodResolver(validation),
   })
+
+  const recording = methods.watch('recording')
+
+  console.log('recording', recording)
 
   const handlePrevious = () => {
     if (step > 1) {
@@ -71,11 +82,22 @@ const App = () => {
     })
   }
 
+  const handleStopRecording = () => {
+    saveRecording()
+    methods.setValue('recording', true)
+  }
+
   return (
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(values => {
           console.log('values', values)
+
+          if (recorderState.blob) {
+            run(createAnswer(values, recorderState.blob))
+          }
+
+          setStep(12)
         })}
       >
         <PagesLayout
@@ -84,15 +106,21 @@ const App = () => {
           footer={
             <Footer
               onPrevious={handlePrevious}
+              onStopRecording={handleStopRecording}
               onNext={handleNext}
-              hideNext={false}
-              hidePrevious={step === 1}
+              hideNext={step === 11 || step === 12}
+              isSubmitStep={step === 11}
+              hidePrevious={step === 1 || step === 12}
             />
           }
           recording={
-            !recorderState.initRecording && (
+            !recorderState.initRecording &&
+            !recording && (
               <RecorderMessage>
-                <Recorder recorderState={recorderState} handlers={handlers} />{' '}
+                <Recorder
+                  recorderState={recorderState}
+                  handlers={{ ...handlers, saveRecording }}
+                />
               </RecorderMessage>
             )
           }

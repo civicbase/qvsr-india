@@ -10,7 +10,8 @@ const checkedStyles = css`
 
 const Checkbox = styled.input.attrs({ type: 'checkbox' })(
   ({ checked, disabled }) => [
-    tw`appearance-none h-5 w-5 inline-block bg-white border-2 border-gray-200 rounded bg-no-repeat bg-center dark:text-white`,
+    tw`appearance-none h-5 w-5 inline-block bg-white border-2 border-gray-200 !rounded !text-brand`,
+    tw`focus:!ring-brand dark:focus:ring-brand focus:ring-2`,
     disabled && tw`!bg-gray-200`,
     checked && checkedStyles,
     css`
