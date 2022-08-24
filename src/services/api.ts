@@ -26,7 +26,11 @@ const client = async (endpoint: string, { body, ...other }: Request = {}) => {
   }
 
   if (body) {
-    config.body = JSON.stringify(body)
+    if (!(body instanceof Blob)) {
+      config.body = JSON.stringify(body)
+    } else {
+      config.body = body
+    }
   }
 
   return window

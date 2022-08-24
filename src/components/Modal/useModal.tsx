@@ -13,8 +13,8 @@ import { ModalProps } from './types'
 const useModal = (Component: FC<ModalProps> = Modal) => {
   const { ref, isOpen, openPortal, togglePortal, closePortal, Portal } =
     usePortal({
-      onOpen: event => disableBodyScroll(event.targetEl.current),
-      onClose: event => enableBodyScroll(event.targetEl.current),
+      onOpen: (event: any) => disableBodyScroll(event.targetEl.current),
+      onClose: (event: any) => enableBodyScroll(event.targetEl.current),
     })
 
   useUnmount(() => clearAllBodyScrollLocks())

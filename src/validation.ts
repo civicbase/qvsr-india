@@ -14,6 +14,9 @@ const validationSchema = z.object({
     parliamentaryArea: z
       .string({ invalid_type_error: 'Select a parliamentary area' })
       .min(1, { message: 'Select a parliamentary area' }),
+    booth: z
+      .string({ invalid_type_error: 'Select booth' })
+      .min(1, { message: 'Select booth' }),
   }),
   step3: z.object({
     assemblyProfile: z.string().optional(),

@@ -1,27 +1,27 @@
 import tw from 'twin.macro'
 import Button from 'components/Button'
 import { useState } from 'react'
+import { useRecorder } from 'context/Recorder'
 
 const Footer = ({
   onPrevious,
   onNext,
-  onStopRecording,
   hidePrevious = false,
   hideNext = false,
   isSubmitStep = false,
 }: {
   onPrevious: () => void
   onNext: () => void
-  onStopRecording: () => void
   hidePrevious: boolean
   hideNext: boolean
   isSubmitStep: boolean
 }) => {
+  const { recorderState, saveRecording } = useRecorder()
   const [stopRecording, setStopRecording] = useState(false)
 
   const handleStopRecording = () => {
+    saveRecording()
     setStopRecording(true)
-    onStopRecording()
   }
 
   return (

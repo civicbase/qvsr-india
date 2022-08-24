@@ -2,7 +2,7 @@ import { useContext, MouseEvent } from 'react'
 import tw, { theme } from 'twin.macro'
 import { HiInformationCircle } from 'react-icons/hi'
 import { IoIosThumbsDown, IoIosThumbsUp } from 'react-icons/io'
-import { IconButton, PrimaryButton } from 'components/Button'
+import Button, { IconButton } from 'components/Button'
 import Typography, { Caption } from 'components/Typography'
 import Modal, { ModalContext } from 'components/Modal'
 
@@ -30,8 +30,17 @@ const Display = ({
 
   return (
     <div css={tw`flex flex-col items-center`}>
-      <div css={tw`h-28 w-28 border rounded-full flex justify-center items-center overflow-hidden relative`}>
-        <div css={[tw`h-8 w-8 flex justify-center items-center z-10`, vote !== 0 && tw`text-black`]}>{vote}</div>
+      <div
+        css={tw`h-28 w-28 border rounded-full flex justify-center items-center overflow-hidden relative`}
+      >
+        <div
+          css={[
+            tw`h-8 w-8 flex justify-center items-center z-10`,
+            vote !== 0 && tw`text-black`,
+          ]}
+        >
+          {vote}
+        </div>
         <div
           style={{ width: `${getSize()}%`, height: `${getSize()}%` }}
           css={[
@@ -91,17 +100,30 @@ const Action = ({
   return (
     <>
       <div css={tw`mx-6`}>
-        <IconButton onClick={handleVoteDown}>
-          <IoIosThumbsDown size={28} color={canVoteDown ? theme`colors.bgColor0` : theme`colors.bgColor8`} />
+        <IconButton onClick={handleVoteDown} type="button">
+          <IoIosThumbsDown
+            size={28}
+            color={
+              canVoteDown ? theme`colors.bgColor0` : theme`colors.bgColor8`
+            }
+          />
         </IconButton>
         <Typography>{thumbsDown}</Typography>
       </div>
 
-      <Display vote={vote} total={total} creditSpent={creditSpent} token={token} />
+      <Display
+        vote={vote}
+        total={total}
+        creditSpent={creditSpent}
+        token={token}
+      />
 
       <div css={tw`mx-6`}>
-        <IconButton onClick={handleVoteUp}>
-          <IoIosThumbsUp size={28} color={canVoteUp ? theme`colors.bgColor1` : theme`colors.bgColor8`} />
+        <IconButton onClick={handleVoteUp} type="button">
+          <IoIosThumbsUp
+            size={28}
+            color={canVoteUp ? theme`colors.bgColor1` : theme`colors.bgColor8`}
+          />
         </IconButton>
         <Typography>{thumbsUp}</Typography>
       </div>
@@ -112,7 +134,11 @@ const Action = ({
 const Footer = () => {
   const { closeModal } = useContext(ModalContext)
 
-  return <PrimaryButton onClick={closeModal}>Ok</PrimaryButton>
+  return (
+    <Button variant="primary" onClick={closeModal}>
+      Ok
+    </Button>
+  )
 }
 
 const Vote = ({
@@ -164,7 +190,9 @@ const Vote = ({
         }
         footer={<Footer />}
       >
-        <Typography css={tw`text-black`}>You don&apos;t have enough {token} to cast this vote.</Typography>
+        <Typography css={tw`text-black`}>
+          You don&apos;t have enough {token} to cast this vote.
+        </Typography>
       </Modal>
     </div>
   )

@@ -1,12 +1,13 @@
 import { IconButton } from 'components/Button'
+import { useRecorder } from 'context/Recorder'
+import { useFormContext } from 'react-hook-form'
 import { BsStop } from 'react-icons/bs'
 import tw, { theme } from 'twin.macro'
-import { RecorderProps } from './types'
 
-const VoiceRecorder = ({ recorderState, handlers }: RecorderProps) => {
-  const { initRecording, recordingMinutes, recordingSeconds, blob } =
-    recorderState
-  const { startRecording, saveRecording } = handlers
+const VoiceRecorder = () => {
+  const { recorderState, startRecording, saveRecording } = useRecorder()
+  const { initRecording } = recorderState
+
   const state: string = recorderState.mediaRecorder?.state || ''
 
   const handleRecording = () => {

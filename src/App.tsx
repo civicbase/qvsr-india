@@ -7,11 +7,11 @@ import Content from 'components/Content'
 import Geolocation from 'components/Geolocation'
 import useGeolocation from 'hooks/use-geolocation'
 import Footer from 'components/Footer'
-import Recorder, { RecorderMessage, UseRecorder } from 'components/Recorder'
-import useRecorder from 'hooks/use-recorder'
+import Recorder, { RecorderMessage } from 'components/Recorder'
 import Header from 'components/Header'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/answer'
+import { useRecorder } from 'context/Recorder'
 
 interface FormValues {
   recording: boolean
@@ -54,8 +54,7 @@ const App = () => {
   const [step, setStep] = useState(1)
   const [userGesture, setUserGesture] = useState(false)
   const { latitude, longitude, error } = useGeolocation(userGesture)
-  const { recorderState, saveRecording, ...handlers }: UseRecorder =
-    useRecorder()
+  const { recorderState } = useRecorder()
   const { run } = useAsync()
 
   const methods = useForm<FormValues>({
@@ -64,10 +63,6 @@ const App = () => {
     },
     resolver: zodResolver(validation),
   })
-
-  const recording = methods.watch('recording')
-
-  console.log('recording', recording)
 
   const handlePrevious = () => {
     if (step > 1) {
@@ -82,17 +77,12 @@ const App = () => {
     })
   }
 
-  const handleStopRecording = () => {
-    saveRecording()
-    methods.setValue('recording', true)
-  }
-
   return (
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(values => {
           console.log('values', values)
-
+          debugger
           if (recorderState.blob) {
             run(createAnswer(values, recorderState.blob))
           }
@@ -106,7 +96,6 @@ const App = () => {
           footer={
             <Footer
               onPrevious={handlePrevious}
-              onStopRecording={handleStopRecording}
               onNext={handleNext}
               hideNext={step === 11 || step === 12}
               isSubmitStep={step === 11}
@@ -114,15 +103,9 @@ const App = () => {
             />
           }
           recording={
-            !recorderState.initRecording &&
-            !recording && (
-              <RecorderMessage>
-                <Recorder
-                  recorderState={recorderState}
-                  handlers={{ ...handlers, saveRecording }}
-                />
-              </RecorderMessage>
-            )
+            <RecorderMessage>
+              <Recorder />
+            </RecorderMessage>
           }
           geolocation={
             (!latitude || !longitude) && (

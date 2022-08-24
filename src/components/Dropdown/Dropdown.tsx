@@ -29,17 +29,28 @@ function Dropdown({
           css={[
             tw`h-10 w-full px-2 text-sm `,
             tw`border-2 rounded-md border-gray-200 placeholder-gray-400`,
-            tw`focus:outline-none focus:(ring-2 ring-blue-300 border-blue-300)`,
+            tw`focus:(!outline-none ring-2 ring-brand ring-opacity-50)`,
             tw`dark:(border-gray-600 placeholder-gray-300 bg-gray-700)`,
             modified && tw`border-indigo-600 border-opacity-60`,
-            error && tw`border-error-300 border-opacity-60 focus:(ring-2 ring-red-300 border-red-300)`,
+            error && tw`ring-2 !ring-red-300 focus:(!ring-red-300)`,
           ]}
         >
-          <span css={[tw`block text-left truncate`, (!value && placeholder) || (disabled && tw`text-gray-400`)]}>
+          <span
+            css={[
+              tw`block text-left truncate`,
+              (!value && placeholder) || (disabled && tw`text-gray-400`),
+            ]}
+          >
             {value || placeholder}
           </span>
-          <span css={tw`absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none`}>
-            <HiOutlineSelector color={error ? theme`colors.bgColor10` : undefined} size={20} aria-hidden="true" />
+          <span
+            css={tw`absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none`}
+          >
+            <HiOutlineSelector
+              color={error ? theme`colors.bgColor10` : undefined}
+              size={20}
+              aria-hidden="true"
+            />
           </span>
         </Listbox.Button>
         <Transition.Dropdown>
@@ -49,11 +60,27 @@ function Dropdown({
               tw`dark:(bg-secondary)`,
             ]}
           >
-            {options.map((value) => (
-              <Listbox.Option key={value} css={tw`cursor-default select-none relative`} value={value}>
+            {options.map(value => (
+              <Listbox.Option
+                key={value}
+                css={tw`cursor-default select-none relative`}
+                value={value}
+              >
                 {({ selected, active }) => (
-                  <div css={[tw`py-2 pl-10 pr-4`, active && tw`bg-brand text-white cursor-pointer`]}>
-                    <span css={[selected ? tw`font-medium` : tw`font-normal`, tw`block truncate`]}>{value}</span>
+                  <div
+                    css={[
+                      tw`py-2 pl-10 pr-4`,
+                      active && tw`bg-brand text-white cursor-pointer`,
+                    ]}
+                  >
+                    <span
+                      css={[
+                        selected ? tw`font-medium` : tw`font-normal`,
+                        tw`block truncate`,
+                      ]}
+                    >
+                      {value}
+                    </span>
                     {selected ? (
                       <span
                         css={[
