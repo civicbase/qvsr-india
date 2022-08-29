@@ -5,35 +5,59 @@ import { Controller, useFormContext } from 'react-hook-form'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import assemblyAreas from 'utils/assemblyAreas'
 import parliamentaryAreas from 'utils/parliamentaryAreas'
+import { useEffect } from 'react'
 
 const Step2 = () => {
   const booth = [
-    'booth1',
-    'booth2',
-    'booth3',
-    'booth4',
-    'booth5',
-    'booth6',
-    'booth7',
-    'booth8',
-    'booth9',
-    'booth10',
-    'booth11',
-    'booth12',
-    'booth13',
-    'booth14',
-    'booth15',
-    'booth16',
-    'booth17',
-    'booth18',
-    'booth19',
-    'booth20',
+    'booth 1 (Quadratic)',
+    'booth 2 (Conjoint)',
+    'booth 3 (Likert)',
+    'booth 4',
+    'booth 5',
+    'booth 6',
+    'booth 7',
+    'booth 8',
+    'booth 9',
+    'booth 10',
+    'booth 11',
+    'booth 12',
+    'booth 13',
+    'booth 14',
+    'booth 15',
+    'booth 16',
+    'booth 17',
+    'booth 18',
+    'booth 19',
+    'booth 20',
   ]
 
   const {
     control,
     formState: { errors },
+    watch,
+    setValue,
   } = useFormContext()
+
+  const selectedBooth: string = watch('step2.booth')
+
+  useEffect(() => {
+    if (selectedBooth) {
+      switch (selectedBooth) {
+        case 'booth 1 (Quadratic)':
+          setValue('method', 'quadratic')
+          break
+        case 'booth 2 (Conjoint)':
+          setValue('method', 'conjoint')
+          break
+        case 'booth 3 (Likert)':
+          setValue('method', 'likert')
+          break
+
+        default:
+          setValue('method', 'quadratic')
+      }
+    }
+  }, [selectedBooth])
 
   return (
     <div css={tw`grid grid-cols-1 gap-6`}>

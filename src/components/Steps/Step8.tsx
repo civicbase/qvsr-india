@@ -35,7 +35,7 @@ const Step8 = () => {
         {bjpCandidates.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>
-              <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Label css={tw`inline-flex space-x-4 items-center select-none`}>
                 <Checkbox
                   {...register(`step8.bjpCandidates.${index}.selected`)}
                 />
@@ -64,7 +64,7 @@ const Step8 = () => {
         {bjpCandidatesCastes.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>
-              <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Label css={tw`inline-flex space-x-4 items-center select-none`}>
                 <Checkbox
                   {...register(`step8.bjpCandidatesCastes.${index}.selected`)}
                 />
@@ -95,7 +95,7 @@ const Step8 = () => {
         {bjpCandidatesDesc.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>
-              <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Label css={tw`inline-flex space-x-4 items-center select-none`}>
                 <Checkbox
                   {...register(`step8.bjpCandidatesWealth.${index}.selected`)}
                 />
@@ -126,7 +126,7 @@ const Step8 = () => {
         {bjpCandidatesDesc.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>
-              <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Label css={tw`inline-flex space-x-4 items-center select-none`}>
                 <Checkbox
                   {...register(
                     `step8.bjpCandidatesPopularity.${index}.selected`,
@@ -158,7 +158,7 @@ const Step8 = () => {
         {bjpCandidatesProfession.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>
-              <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Label css={tw`inline-flex space-x-4 items-center select-none`}>
                 <Checkbox
                   {...register(
                     `step8.bjpCandidatesProfession.${index}.selected`,
@@ -198,7 +198,7 @@ const Step8 = () => {
 
           return (
             <div key={desc}>
-              <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Label css={tw`inline-flex space-x-4 items-center select-none`}>
                 <Checkbox
                   {...register(`step8.winnableCandidate`)}
                   value={desc}
@@ -221,7 +221,7 @@ const Step8 = () => {
         {bjpCandidatesDesc.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>
-              <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Label css={tw`inline-flex space-x-4 items-center select-none`}>
                 <Checkbox
                   {...register(`step8.bjpCandidatesPost.${index}.selected`)}
                 />

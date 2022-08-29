@@ -16,7 +16,7 @@ const Rating = ({ name }: { name: string }) => {
   }
 
   return (
-    <div css={tw`flex justify-center  p-8 pb-2 w-auto space-x-3`}>
+    <div css={tw`flex p-8 pb-2 pl-0 w-auto space-x-3`}>
       {[1, 2, 3, 4, 5].map(i => (
         <button onClick={() => handleRateChange(i)} type="button" key={i}>
           {rate >= i ? <FillStar /> : <UnfillStar />}

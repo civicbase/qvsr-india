@@ -1,5 +1,6 @@
 import tw from 'twin.macro'
 import Steps from 'components/Steps'
+import { memo } from 'react'
 
 const Content = ({ step }: { step: number }) => {
   return (
@@ -9,4 +10,4 @@ const Content = ({ step }: { step: number }) => {
   )
 }
 
-export default Content
+export default memo(Content)

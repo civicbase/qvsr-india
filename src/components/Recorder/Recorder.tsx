@@ -1,6 +1,5 @@
 import { IconButton } from 'components/Button'
 import { useRecorder } from 'context/Recorder'
-import { useFormContext } from 'react-hook-form'
 import { BsStop } from 'react-icons/bs'
 import tw, { theme } from 'twin.macro'
 

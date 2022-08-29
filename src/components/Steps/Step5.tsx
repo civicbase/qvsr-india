@@ -28,7 +28,10 @@ const Step5 = () => {
 
         <div css={tw`grid grid-cols-1 gap-2`}>
           {parties.map(party => (
-            <Label css={tw`inline-flex space-x-4 items-center`} key={party}>
+            <Label
+              css={tw`inline-flex space-x-4 items-center select-none`}
+              key={party}
+            >
               <Radio {...register('step5.winners2017.party')} value={party} />
               <span>{party}</span>
             </Label>
@@ -43,7 +46,7 @@ const Step5 = () => {
       </div>
 
       <div>
-        <Label>Vote Share (in porcentage)*</Label>
+        <Label>Vote Share (in percentage)*</Label>
         <Input
           {...register('step5.voteShare', {
             valueAsNumber: true,
@@ -71,7 +74,10 @@ const Step5 = () => {
           const name = caste.charAt(0).toUpperCase() + caste.slice(1)
 
           return (
-            <Label css={tw`inline-flex space-x-4 items-center`} key={caste}>
+            <Label
+              css={tw`inline-flex space-x-4 items-center select-none`}
+              key={caste}
+            >
               <Radio {...register('step5.currentMLA.caste')} value={caste} />
               <span>{name}</span>
             </Label>
@@ -99,12 +105,12 @@ const Step5 = () => {
         </Label>
 
         <div css={tw`grid grid-cols-1 gap-2`}>
-          <Label css={tw`inline-flex space-x-4 items-center`}>
+          <Label css={tw`inline-flex space-x-4 items-center select-none`}>
             <Radio {...register('step5.currentMLA.hasPosition')} value="yes" />
             <span>Yes</span>
           </Label>
 
-          <Label css={tw`inline-flex space-x-4 items-center`}>
+          <Label css={tw`inline-flex space-x-4 items-center select-none`}>
             <Radio {...register('step5.currentMLA.hasPosition')} value="no" />
             <span>No</span>
           </Label>
@@ -127,7 +133,10 @@ const Step5 = () => {
           const disabled = isDisabledOption(reason, winReasons, 3)
 
           return (
-            <Label key={reason} css={tw`inline-flex space-x-4 items-center`}>
+            <Label
+              key={reason}
+              css={tw`inline-flex space-x-4 items-center select-none`}
+            >
               <Checkbox
                 {...register(`step5.winReasons`)}
                 value={reason}

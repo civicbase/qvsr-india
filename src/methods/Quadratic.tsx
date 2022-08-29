@@ -2,9 +2,12 @@ import DynamicBar from 'components/DynamicBar'
 import { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
 import useQuadratic from 'hooks/use-quadratic'
+import { memo, useEffect } from 'react'
+import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
 
 const Quadratic = ({ qs }: { qs: any[] }) => {
+  const { setValue, watch } = useFormContext()
   const credits = 100
   const survey = {
     setup: {
@@ -16,6 +19,14 @@ const Quadratic = ({ qs }: { qs: any[] }) => {
   }
 
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
+
+  const test = watch('step7')
+
+  useEffect(() => {
+    if (questions) {
+      setValue('step7', questions)
+    }
+  }, [questions])
 
   return (
     <div>
@@ -58,4 +69,4 @@ const Quadratic = ({ qs }: { qs: any[] }) => {
   )
 }
 
-export default Quadratic
+export default memo(Quadratic)

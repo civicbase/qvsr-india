@@ -27,7 +27,10 @@ const Step6 = () => {
 
         <div css={tw`grid grid-cols-1 gap-2`}>
           {parties.map(party => (
-            <Label css={tw`inline-flex space-x-4 items-center`} key={party}>
+            <Label
+              css={tw`inline-flex space-x-4 items-center select-none`}
+              key={party}
+            >
               <Radio
                 {...register('step6.firstRunnersAssemblyElections.party')}
                 value={party}
@@ -48,7 +51,7 @@ const Step6 = () => {
       </div>
 
       <div>
-        <Label>Vote Share (in porcentage)*</Label>
+        <Label>Vote Share (in percentage)*</Label>
         <Input
           {...register('step6.voteShare', {
             valueAsNumber: true,
@@ -79,7 +82,10 @@ const Step6 = () => {
           const name = caste.charAt(0).toUpperCase() + caste.slice(1)
 
           return (
-            <Label css={tw`inline-flex space-x-4 items-center`} key={caste}>
+            <Label
+              css={tw`inline-flex space-x-4 items-center select-none`}
+              key={caste}
+            >
               <Radio
                 {...register(
                   'step6.firstRunnersAssemblyElections.candidateCaste',
@@ -119,7 +125,10 @@ const Step6 = () => {
           const disabled = isDisabledOption(reason, lossreasons, 3)
 
           return (
-            <Label key={reason} css={tw`inline-flex space-x-4 items-center`}>
+            <Label
+              key={reason}
+              css={tw`inline-flex space-x-4 items-center select-none`}
+            >
               <Checkbox
                 {...register(`step6.lossReason`)}
                 value={reason}

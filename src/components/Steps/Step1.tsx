@@ -15,7 +15,6 @@ const Step1 = () => {
       <Input
         {...register('step1.surveyor', { required: true })}
         error={!!errors?.step1?.surveyor}
-        autoFocus
       />
       <FieldErrorMessage name="step1.surveyor" errors={errors} />
     </div>

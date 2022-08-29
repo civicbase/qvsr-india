@@ -11,10 +11,9 @@ import Recorder, { RecorderMessage } from 'components/Recorder'
 import Header from 'components/Header'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/answer'
-import { useRecorder } from 'context/Recorder'
+import { transform } from 'transform'
 
 interface FormValues {
-  recording: boolean
   step1: {
     surveyor?: string
   }
@@ -48,18 +47,21 @@ interface FormValues {
       hasPosition?: string
     }
   }
+  step7: any
+  recording: null | Blob
+  method: null | 'quadratic' | 'likert' | 'conjoint'
 }
 
 const App = () => {
   const [step, setStep] = useState(1)
   const [userGesture, setUserGesture] = useState(false)
   const { latitude, longitude, error } = useGeolocation(userGesture)
-  const { recorderState } = useRecorder()
   const { run } = useAsync()
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      recording: false,
+      recording: null,
+      step7: null,
     },
     resolver: zodResolver(validation),
   })
@@ -81,10 +83,17 @@ const App = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(values => {
-          console.log('values', values)
-          debugger
-          if (recorderState.blob) {
-            run(createAnswer(values, recorderState.blob))
+          const recording = values.recording
+
+          if (recording) {
+            const answer = transform(values)
+
+            run(
+              createAnswer(
+                { ...answer, geolocation: { latitude, longitude } },
+                recording,
+              ),
+            )
           }
 
           setStep(12)

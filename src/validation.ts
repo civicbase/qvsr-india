@@ -1,6 +1,8 @@
 import * as z from 'zod'
 
 const validationSchema = z.object({
+  recording: z.instanceof(Blob).nullable(),
+  method: z.string(),
   step1: z.object({
     surveyor: z
       .string()
@@ -100,6 +102,7 @@ const validationSchema = z.object({
 
     lossReason: z.any(), // TODO
   }),
+  step7: z.any(),
   step8: z.object({
     bjpCandidates: z
       .object({

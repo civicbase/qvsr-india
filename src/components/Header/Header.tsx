@@ -1,8 +1,9 @@
-import Typography, { Subtitle } from 'components/Typography'
+import { Subtitle } from 'components/Typography'
+import tw from 'twin.macro'
 
 const Header = () => {
   return (
-    <div>
+    <div css={tw`text-center`}>
       <Subtitle>Primary Research - Himachal Pradesh</Subtitle>
     </div>
   )

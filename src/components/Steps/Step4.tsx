@@ -56,7 +56,7 @@ const Step4 = () => {
 
         return (
           <div key={caste}>
-            <Label css={tw`inline-flex space-x-4 items-center`}>
+            <Label css={tw`inline-flex space-x-4 items-center select-none`}>
               <Checkbox
                 {...register(`step4.majorCastes[${caste}].selected`)}
                 disabled={disabled}

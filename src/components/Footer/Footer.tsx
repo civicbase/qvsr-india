@@ -1,7 +1,8 @@
 import tw from 'twin.macro'
 import Button from 'components/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecorder } from 'context/Recorder'
+import { useFormContext } from 'react-hook-form'
 
 const Footer = ({
   onPrevious,
@@ -18,6 +19,13 @@ const Footer = ({
 }) => {
   const { recorderState, saveRecording } = useRecorder()
   const [stopRecording, setStopRecording] = useState(false)
+  const { setValue } = useFormContext()
+
+  useEffect(() => {
+    if (recorderState.blob) {
+      setValue('recording', recorderState.blob)
+    }
+  }, [recorderState])
 
   const handleStopRecording = () => {
     saveRecording()

@@ -1,17 +1,17 @@
-import Button from 'components/Button'
 import Card from 'components/Card'
 import Typography from 'components/Typography'
-import { useState } from 'react'
+import { memo, useMemo, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
 
 const Option = ({
   title,
-  text,
+  content,
   selected,
   handleSelection,
 }: {
   title: string
-  text: string
+  content: string[]
   selected: boolean
   handleSelection: () => void
 }) => {
@@ -19,23 +19,27 @@ const Option = ({
     <Card
       css={[
         tw`flex p-0 rounded cursor-pointer hover:(outline-none ring-2 ring-brand)`,
+        tw`mobile:(m-4)`,
         selected && tw`ring-2 ring-brand`,
       ]}
       onClick={handleSelection}
     >
       <Typography
         css={[
-          tw`flex justify-center border-b-2 border-gray-100 py-2 text-gray-500`,
-          selected && tw`border-brand`,
+          tw`flex justify-center border-b-2 border-gray-100 py-2 text-gray-500 bg-gray-50`,
         ]}
       >
         {title}
       </Typography>
 
       <div css={tw`flex-1 flex flex-col justify-between`}>
-        <Typography css={tw`flex justify-center items-center flex-1`}>
-          {text}
-        </Typography>
+        <div
+          css={tw`h-24 flex flex-col justify-center items-center text-center`}
+        >
+          {content.map(option => (
+            <Typography key={option}>{option}</Typography>
+          ))}
+        </div>
 
         <div
           css={[
@@ -51,20 +55,74 @@ const Option = ({
 }
 
 const Conjoint = ({ qs }: { qs: any[] }) => {
-  const [selected, setSelected] = useState(0)
+  const { setValue, watch } = useFormContext()
+
+  const preferences = watch('step7.preferences')
+
+  const chunk = (arr: any, n: number) => {
+    var r = Array(Math.ceil(arr.length / n)).fill(0)
+    return r.map((e, i) => arr.slice(i * n, i * n + n))
+  }
+
+  const handleSelection = (pair: string[], questionIndex: number) => {
+    setValue(`step7.preferences.${questionIndex}`, pair)
+  }
+
+  const questions = useMemo(() => {
+    const temp = []
+    const shuffledQuestions = qs.sort(() => 0.5 - Math.random())
+    const range = shuffledQuestions.slice(0, 6)
+
+    for (let index = 0; index < 5; index++) {
+      const pair = chunk(
+        range.sort(() => 0.5 - Math.random()),
+        3,
+      )
+
+      temp.push(pair)
+    }
+
+    setValue(`step7.questions`, temp)
+    return temp
+  }, [])
 
   return (
-    <div css={tw`grid grid-cols-2 gap-4`}>
-      {qs.map((question, index) => (
-        <Option
-          title={`Option ${index + 1}`}
-          text={question}
-          selected={selected == index + 1}
-          handleSelection={() => setSelected(index + 1)}
-        />
-      ))}
+    <div>
+      <div css={tw`text-center`}>
+        <Typography>
+          Given each group which of these policy combinations do you prefer?
+        </Typography>
+      </div>
+
+      {questions.map((pair: string[][], set: number) => {
+        return (
+          <div
+            css={tw`flex mobile:space-x-0 space-x-6`}
+            key={JSON.stringify(pair)}
+          >
+            {pair.map((p, index) => {
+              let selected = false
+
+              if (preferences && preferences[set]) {
+                selected =
+                  JSON.stringify(p) === JSON.stringify(preferences[set])
+              }
+
+              return (
+                <Option
+                  key={JSON.stringify(p)}
+                  title={`Option ${index + 1}`}
+                  content={p}
+                  selected={selected}
+                  handleSelection={() => handleSelection(p, set)}
+                />
+              )
+            })}
+          </div>
+        )
+      })}
     </div>
   )
 }
 
-export default Conjoint
+export default memo(Conjoint)

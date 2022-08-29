@@ -23,8 +23,6 @@ const Step10 = () => {
 
   const candidates = watch('step10.possibleCandidates')
 
-  console.log('candidates', candidates)
-
   return (
     <div css={tw`grid grid-cols-1 gap-6`}>
       <div>
@@ -36,7 +34,7 @@ const Step10 = () => {
         {possibleCandidates.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>
-              <Label css={tw`inline-flex space-x-4 items-center`}>
+              <Label css={tw`inline-flex space-x-4 items-center select-none`}>
                 <Checkbox
                   {...register(`step10.possibleCandidates.${index}.selected`)}
                 />

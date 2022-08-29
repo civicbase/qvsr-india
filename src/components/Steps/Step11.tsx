@@ -38,7 +38,10 @@ const Step11 = () => {
 
         <div css={tw`grid grid-cols-1 gap-2`}>
           {parties.map(party => (
-            <Label css={tw`inline-flex space-x-4 items-center`} key={party}>
+            <Label
+              css={tw`inline-flex space-x-4 items-center select-none`}
+              key={party}
+            >
               <Radio {...register('step11.stateWinner.party')} value={party} />
               <span>{party}</span>
             </Label>
@@ -60,7 +63,10 @@ const Step11 = () => {
 
         <div css={tw`grid grid-cols-1 gap-2`}>
           {parties.map(party => (
-            <Label css={tw`inline-flex space-x-4 items-center`} key={party}>
+            <Label
+              css={tw`inline-flex space-x-4 items-center select-none`}
+              key={party}
+            >
               <Radio
                 {...register('step11.constituencyWinner.party')}
                 value={party}
@@ -90,7 +96,10 @@ const Step11 = () => {
           const disabled = isDisabledOption(party, parties, 3)
 
           return (
-            <Label key={party} css={tw`inline-flex space-x-4 items-center`}>
+            <Label
+              key={party}
+              css={tw`inline-flex space-x-4 items-center select-none`}
+            >
               <Checkbox
                 {...register(`step11.abilityWinner.${party}`)}
                 value={party}
