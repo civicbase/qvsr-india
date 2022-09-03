@@ -68,7 +68,7 @@ const Step5 = () => {
       </div>
 
       <div css={tw`grid grid-cols-1 gap-2`}>
-        <Label>Current MLA caste</Label>
+        <Label>Current MLA caste *</Label>
 
         {castes.map(caste => {
           const name = caste.charAt(0).toUpperCase() + caste.slice(1)

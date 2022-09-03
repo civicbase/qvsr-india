@@ -10,5 +10,6 @@ export { default as Step9 } from './Step9'
 export { default as Step10 } from './Step10'
 export { default as Step11 } from './Step11'
 export { default as Step12 } from './Step12'
+export { default as Step13 } from './Step13'
 
 export { default } from './Steps'

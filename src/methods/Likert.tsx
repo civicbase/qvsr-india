@@ -4,9 +4,13 @@ import { Controller } from 'react-hook-form'
 import tw from 'twin.macro'
 import Typography from 'components/Typography'
 import RadioButton from 'components/Form/Radio'
+import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 
-const Likert = ({ qs }: { qs: any[] }) => {
-  const { control } = useFormContext()
+const Likert = ({ qs, step }: { qs: any[]; step: string }) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext()
 
   return (
     <div css={tw`flex flex-col items-center`}>
@@ -18,11 +22,11 @@ const Likert = ({ qs }: { qs: any[] }) => {
           <Controller
             rules={{ required: true }}
             control={control}
-            name={`step7.${attribute}`}
+            name={`${step}.${attribute}`}
             render={({ field }) => (
               <RadioGroup
                 {...field}
-                id={`step7.${attribute}`}
+                id={`${step}.${attribute}`}
                 css={tw`flex space-x-7 all-child:(text-center font-size[small])`}
               >
                 <RadioGroup.Option value={1}>
@@ -70,6 +74,8 @@ const Likert = ({ qs }: { qs: any[] }) => {
           />
         </div>
       ))}
+
+      <FieldErrorMessage name={step} errors={errors} />
     </div>
   )
 }

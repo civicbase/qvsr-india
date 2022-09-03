@@ -47,7 +47,6 @@ interface FormValues {
       hasPosition?: string
     }
   }
-  step7: any
   recording: null | Blob
   method: null | 'quadratic' | 'likert' | 'conjoint'
 }
@@ -61,7 +60,6 @@ const App = () => {
   const methods = useForm<FormValues>({
     defaultValues: {
       recording: null,
-      step7: null,
     },
     resolver: zodResolver(validation),
   })
@@ -84,6 +82,7 @@ const App = () => {
       <form
         onSubmit={methods.handleSubmit(values => {
           const recording = values.recording
+          debugger
 
           if (recording) {
             const answer = transform(values)
@@ -96,7 +95,7 @@ const App = () => {
             )
           }
 
-          setStep(12)
+          setStep(13)
         })}
       >
         <PagesLayout
@@ -106,9 +105,16 @@ const App = () => {
             <Footer
               onPrevious={handlePrevious}
               onNext={handleNext}
-              hideNext={step === 11 || step === 12}
-              isSubmitStep={step === 11}
-              hidePrevious={step === 1 || step === 12}
+              hideNext={step === 12 || step === 13}
+              isSubmitStep={step === 12}
+              hidePrevious={
+                step === 1 ||
+                step === 2 ||
+                step === 3 ||
+                step === 11 ||
+                step === 12
+              }
+              isStart={step === 1}
             />
           }
           recording={

@@ -1,6 +1,7 @@
 import Card from 'components/Card'
+import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import Typography from 'components/Typography'
-import { memo, useMemo, useState } from 'react'
+import { memo, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
 
@@ -54,10 +55,14 @@ const Option = ({
   )
 }
 
-const Conjoint = ({ qs }: { qs: any[] }) => {
-  const { setValue, watch } = useFormContext()
+const Conjoint = ({ qs, step }: { qs: any[]; step: string }) => {
+  const {
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext()
 
-  const preferences = watch('step7.preferences')
+  const preferences = watch(`${step}.preferences`)
 
   const chunk = (arr: any, n: number) => {
     var r = Array(Math.ceil(arr.length / n)).fill(0)
@@ -65,7 +70,7 @@ const Conjoint = ({ qs }: { qs: any[] }) => {
   }
 
   const handleSelection = (pair: string[], questionIndex: number) => {
-    setValue(`step7.preferences.${questionIndex}`, pair)
+    setValue(`${step}.preferences.${questionIndex}`, pair)
   }
 
   const questions = useMemo(() => {
@@ -82,7 +87,7 @@ const Conjoint = ({ qs }: { qs: any[] }) => {
       temp.push(pair)
     }
 
-    setValue(`step7.questions`, temp)
+    setValue(`${step}.questions`, temp)
     return temp
   }, [])
 
@@ -121,6 +126,8 @@ const Conjoint = ({ qs }: { qs: any[] }) => {
           </div>
         )
       })}
+
+      <FieldErrorMessage name={step} errors={errors} />
     </div>
   )
 }

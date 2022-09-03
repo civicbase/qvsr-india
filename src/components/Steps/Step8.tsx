@@ -1,14 +1,14 @@
-import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
-import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
+import { useFormContext } from 'react-hook-form'
 import Checkbox from 'components/Form/Checkbox'
+import Input from 'components/Form/Input'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
-import { isDisabledOption } from 'utils/isDisabledOption'
 import bjpCandidates from 'utils/bjpCandidates'
 import bjpCandidatesCastes from 'utils/bjpCandidatesCastes'
 import bjpCandidatesDesc from 'utils/bjpCandidatesDesc'
 import bjpCandidatesProfession from 'utils/bjpCandidatesProfession'
+import { isDisabledOption } from 'utils/isDisabledOption'
 
 const Step8 = () => {
   const {
@@ -28,10 +28,8 @@ const Step8 = () => {
   return (
     <div css={tw`grid grid-cols-1 gap-6`}>
       <div>
-        <Label>
-          In your opinion, who do you think can be a candidate from BJP (Give
-          full name) *
-        </Label>
+        <Label>Who in your opinion can be nominated from Congress? *</Label>
+
         {bjpCandidates.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>
@@ -88,7 +86,7 @@ const Step8 = () => {
       <div>
         <Label>
           Please rank the candidate in terms of wealth and resources (eg first
-          select the number 3 candidate if he is more wealthy, and select others
+          select the number 2 candidate if he is more wealthy, and select others
           in that order) *
         </Label>
 
@@ -119,7 +117,7 @@ const Step8 = () => {
       <div>
         <Label>
           Please rank the candidate in terms of popularity and visibility (eg
-          first select the number 2 candidate if he is more wealthy, and select
+          first select the number 3 candidate if he is more wealthy, and select
           others in that order) *
         </Label>
 
@@ -180,7 +178,6 @@ const Step8 = () => {
             </div>
           )
         })}
-
         <FieldErrorMessage
           name="step8.bjpCandidatesProfession"
           errors={errors}
@@ -215,9 +212,10 @@ const Step8 = () => {
 
       <div>
         <Label>
-          Whether the candidate holds any post in the Party/Government Write the
-          name of the post in the box, otherwise write NA) *
+          Whether the candidate holds any position in the party Write the name
+          of the post in the box, otherwise write NA) *
         </Label>
+
         {bjpCandidatesDesc.map((candidate: string, index: number) => {
           return (
             <div key={candidate}>

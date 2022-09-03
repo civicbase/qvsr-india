@@ -1,4 +1,5 @@
 import DynamicBar from 'components/DynamicBar'
+import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
 import useQuadratic from 'hooks/use-quadratic'
@@ -6,8 +7,11 @@ import { memo, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
 
-const Quadratic = ({ qs }: { qs: any[] }) => {
-  const { setValue, watch } = useFormContext()
+const Quadratic = ({ qs, step }: { qs: any[]; step: string }) => {
+  const {
+    setValue,
+    formState: { errors },
+  } = useFormContext()
   const credits = 100
   const survey = {
     setup: {
@@ -20,11 +24,9 @@ const Quadratic = ({ qs }: { qs: any[] }) => {
 
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
 
-  const test = watch('step7')
-
   useEffect(() => {
     if (questions) {
-      setValue('step7', questions)
+      setValue(step, questions)
     }
   }, [questions])
 
@@ -65,6 +67,8 @@ const Quadratic = ({ qs }: { qs: any[] }) => {
           </div>
         )
       })}
+
+      <FieldErrorMessage name={step} errors={errors} />
     </div>
   )
 }

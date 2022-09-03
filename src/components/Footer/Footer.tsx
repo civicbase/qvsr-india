@@ -10,12 +10,14 @@ const Footer = ({
   hidePrevious = false,
   hideNext = false,
   isSubmitStep = false,
+  isStart,
 }: {
   onPrevious: () => void
   onNext: () => void
   hidePrevious: boolean
   hideNext: boolean
   isSubmitStep: boolean
+  isStart?: boolean
 }) => {
   const { recorderState, saveRecording } = useRecorder()
   const [stopRecording, setStopRecording] = useState(false)
@@ -43,7 +45,7 @@ const Footer = ({
       )}
       {!hideNext && (
         <Button variant="primary" onClick={onNext}>
-          {hidePrevious ? 'Start Survey' : 'Next'}
+          {isStart ? 'Start Survey' : 'Next'}
         </Button>
       )}
 

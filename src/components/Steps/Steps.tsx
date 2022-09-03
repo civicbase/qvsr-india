@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import * as Section from '.'
 
 type StepsProps = {
@@ -5,6 +6,17 @@ type StepsProps = {
 }
 
 const Steps = ({ id }: StepsProps) => {
+  useEffect(() => {
+    const body = document.querySelector('#content')
+
+    if (body) {
+      body.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }
+  }, [id])
+
   switch (id) {
     case 1:
       return <Section.Step1 />
@@ -30,7 +42,8 @@ const Steps = ({ id }: StepsProps) => {
       return <Section.Step11 />
     case 12:
       return <Section.Step12 />
-
+    case 13:
+      return <Section.Step13 />
     default:
       return <div>Error</div>
   }
