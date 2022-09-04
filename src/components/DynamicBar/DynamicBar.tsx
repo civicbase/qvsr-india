@@ -29,7 +29,7 @@ const DynamicBar = ({
         ]}
         style={{ width: `${progress}%` }}
       />
-      <div css={tw`absolute inset-x-1/2 w-full`}>
+      <div css={tw`absolute text-center w-full`}>
         <Typography css={tw`text-white`}>
           {availableCredits}/{total} {language}
         </Typography>

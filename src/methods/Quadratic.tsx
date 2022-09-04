@@ -32,7 +32,7 @@ const Quadratic = ({ qs, step }: { qs: any[]; step: string }) => {
 
   return (
     <div>
-      <div css={tw`sticky top-0 z-20 mb-7 bg-white`}>
+      <div css={tw`sticky -top-2 z-20 mb-7 bg-white`}>
         <DynamicBar
           total={credits}
           availableCredits={availableCredits}

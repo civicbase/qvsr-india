@@ -82,7 +82,6 @@ const App = () => {
       <form
         onSubmit={methods.handleSubmit(values => {
           const recording = values.recording
-          debugger
 
           if (recording) {
             const answer = transform(values)
@@ -112,7 +111,8 @@ const App = () => {
                 step === 2 ||
                 step === 3 ||
                 step === 11 ||
-                step === 12
+                step === 12 ||
+                step === 13
               }
               isStart={step === 1}
             />

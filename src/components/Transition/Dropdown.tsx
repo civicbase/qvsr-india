@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react'
-import { ReactNode, Fragment } from 'react'
+import { ReactNode } from 'react'
 import tw, { styled } from 'twin.macro'
 
 const StyledTransition = styled(Transition)`

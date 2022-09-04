@@ -11,11 +11,11 @@ export const keyIssues = [
 ]
 
 export const reasonsToVoteACandidate = [
-  `candidate's property`,
+  'candidate property',
   'party national leadership',
   'party regional leadership',
-  `candidate's performance`,
+  'candidate performance',
   'nothing special people want change',
-  `candidate's caste`,
-  `candidate's image`,
+  'candidate caste',
+  'candidate image',
 ]

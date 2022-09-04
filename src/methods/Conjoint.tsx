@@ -35,7 +35,7 @@ const Option = ({
 
       <div css={tw`flex-1 flex flex-col justify-between`}>
         <div
-          css={tw`h-24 flex flex-col justify-center items-center text-center`}
+          css={tw`h-24 flex flex-col justify-center items-center text-center mobile:h-48`}
         >
           {content.map(option => (
             <Typography key={option}>{option}</Typography>
